@@ -124,3 +124,55 @@ public:
             q = q->prev;
         }
     }
+// 5. Play Current Song
+    void playCurrentSong() {
+        if (current == nullptr) {
+            cout << "No song is currently selected.\n";
+            return;
+        }
+        cout << "Playing: " << current->songTitle << " by " << current->artistName << "\n";
+    }
+
+    // 6. Play Next Song
+    void playNextSong() {
+        if (current == nullptr) {
+            cout << "Playlist is empty.\n";
+            return;
+        }
+        if (current->next != nullptr) {
+            current = current->next; // Move to Next Song
+            cout << "Moved to Next. ";
+            playCurrentSong();
+        } else {
+            cout << "You are at the end of the playlist. No next song.\n";
+        }
+    }
+
+    // 7. Play Previous Song
+    void playPreviousSong() {
+        if (current == nullptr) {
+            cout << "Playlist is empty.\n";
+            return;
+        }
+        if (current->prev != nullptr) {
+            current = current->prev; // Move to Previous Song
+            cout << "Moved to Previous. ";
+            playCurrentSong();
+        } else {
+            cout << "You are at the beginning of the playlist. No previous song.\n";
+        }
+    }
+
+    // 8. Play Complete Playlist
+    void playCompletePlaylist() {
+        if (head == nullptr) {
+            cout << "Playlist is empty.\n";
+            return;
+        }
+        Node* q = head;
+        cout << "Playing complete playlist:\n";
+        while (q != nullptr) {
+            cout << " > " << q->songTitle << " by " << q->artistName << "\n";
+            q = q->next;
+        }
+    }
