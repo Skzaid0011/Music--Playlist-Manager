@@ -71,3 +71,56 @@ public:
             cout << "Deleted: " << title << "\n";
             return;
         }
+// Deleting from middle or end
+        while (q->next != nullptr) {
+            if (q->next->songTitle == title) {
+                Node* p = q->next; // p points to the node to be deleted
+                q->next = p->next;
+                if (p->next != nullptr) {
+                    p->next->prev = q;
+                }
+                if (current == p) {
+                    current = q; // Reassign current if deleted
+                }
+                delete p;
+                cout << "Deleted: " << title << "\n";
+                return;
+            }
+            q = q->next;
+        }
+        cout << "Song '" << title << "' not found in the playlist.\n";
+    }
+
+    // 3. Display Playlist
+    void displayPlaylist() {
+        if (head == nullptr) {
+            cout << "Playlist is empty.\n";
+            return;
+        }
+        Node* q = head;
+        cout << "Playlist (Forward):\n";
+        while (q != nullptr) {
+            cout << " - " << q->songTitle << " by " << q->artistName;
+            if (q == current) cout << " [CURRENT]";
+            cout << "\n";
+            q = q->next;
+        }
+    }
+
+    // 4. Display Playlist in Reverse
+    void displayPlaylistReverse() {
+        if (head == nullptr) {
+            cout << "Playlist is empty.\n";
+            return;
+        }
+        Node* q = head;
+        // Move q to the last node
+        while (q->next != nullptr) {
+            q = q->next;
+        }
+        cout << "Playlist (Reverse):\n";
+        while (q != nullptr) {
+            cout << " - " << q->songTitle << " by " << q->artistName << "\n";
+            q = q->prev;
+        }
+    }
