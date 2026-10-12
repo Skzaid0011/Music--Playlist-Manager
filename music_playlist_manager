@@ -176,3 +176,97 @@ public:
             q = q->next;
         }
     }
+// 9. Repeat All
+    void repeatAll(int repetitions) {
+        if (head == nullptr) {
+            cout << "Playlist is empty.\n";
+            return;
+        }
+        for (int i = 1; i <= repetitions; i++) {
+            cout << "--- Repetition " << i << " ---\n";
+            playCompletePlaylist();
+        }
+    }
+
+    // 10. Show Current Song
+    void showCurrentSong() {
+        if (current == nullptr) {
+            cout << "No current song.\n";
+        } else {
+            cout << "Current Selection: " << current->songTitle << " by " << current->artistName << "\n";
+        }
+    }
+};
+
+int main() {
+    MusicPlaylistManager playlist;
+    int choice;
+    string title, artist;
+    int reps;
+
+    do {
+        cout << "\n--- Music Playlist Manager ---\n";
+        cout << "1. Add Song\n";
+        cout << "2. Delete Song\n";
+        cout << "3. Display Playlist\n";
+        cout << "4. Display Playlist in Reverse\n";
+        cout << "5. Play Current Song\n";
+        cout << "6. Play Next Song\n";
+        cout << "7. Play Previous Song\n";
+        cout << "8. Play Complete Playlist\n";
+        cout << "9. Repeat All\n";
+        cout << "10. Show Current Song\n";
+        cout << "11. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        cin.ignore(); // clear input buffer
+
+        switch (choice) {
+            case 1:
+                cout << "Enter Song Title: ";
+                getline(cin, title);
+                cout << "Enter Artist Name: ";
+                getline(cin, artist);
+                playlist.addSong(title, artist);
+                break;
+            case 2:
+                cout << "Enter Song Title to Delete: ";
+                getline(cin, title);
+                playlist.deleteSong(title);
+                break;
+            case 3:
+                playlist.displayPlaylist();
+                break;
+            case 4:
+                playlist.displayPlaylistReverse();
+                break;
+            case 5:
+                playlist.playCurrentSong();
+                break;
+            case 6:
+                playlist.playNextSong();
+                break;
+            case 7:
+                playlist.playPreviousSong();
+                break;
+            case 8:
+                playlist.playCompletePlaylist();
+                break;
+            case 9:
+                cout << "Enter number of repetitions: ";
+                cin >> reps;
+                playlist.repeatAll(reps);
+                break;
+            case 10:
+                playlist.showCurrentSong();
+                break;
+            case 11:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+
+    } while (choice != 11);
+    return 0;
+}
